@@ -7,6 +7,7 @@
 //
 
 #import "XSRecommendViewController.h"
+#import "XSTextViewController.h"
 
 @interface XSRecommendViewController ()
 
@@ -15,18 +16,36 @@
 @implementation XSRecommendViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    self.navBarStyle = XSNavBarStyle_Red;
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor redColor];
+    
     self.navTitle = @"推荐";
-    self.showRedBack = YES;
+    
+    [self setUI];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setUI {
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 150, 50)];
+    btn.center = self.view.center;
+    btn.backgroundColor = [UIColor redColor];
+    [btn setTitle:@"点击到下一级菜单" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+}
+
+- (void)btnClick {
+    DLog(@"hello");
+    XSTextViewController *textVC = [[XSTextViewController alloc] init];
+    [self.navigationController pushViewController:textVC animated:YES];
 }
 
 /*

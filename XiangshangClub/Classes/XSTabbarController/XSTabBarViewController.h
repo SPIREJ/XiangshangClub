@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLNavigationController.h"
 
 @interface XSTabBarViewController : UITabBarController
 

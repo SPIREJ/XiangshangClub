@@ -20,18 +20,29 @@
     
     self.view.backgroundColor = kVCViewBGColor;
     self.navigationItem.titleView = self.titleViewLB;
-    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.hidesBackButton = NO;
     self.navigationItem.title = @"";
+    
+    //设置默认导航栏的颜色是白色
     self.navBarStyle = XSNavBarStyle_White;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.navBarStyle == XSNavBarStyle_Red) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }else if (self.navBarStyle == XSNavBarStyle_White){
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    }
+}
+
 /**
- *  设置导航栏的颜色，默认是红色
+ *  设置导航栏的颜色，默认是白色
  */
-- (void)setNavBarStylr:(XSNavBarStyle)navBarStyle
+- (void)setNavBarStyle:(XSNavBarStyle)navBarStyle
 {
     _navBarStyle = navBarStyle;
-    if (XSNavBarStyle_White == navBarStyle) {
+    if (XSNavBarStyle_White == _navBarStyle) {
         self.titleViewLB.textColor = Color_blackColor;
         self.navigationController.navigationBar.barTintColor = Color_whiteColor;
         self.navigationController.navigationBar.translucent = NO;
@@ -39,7 +50,7 @@
         UINavigationBar *navigationBar = self.navigationController.navigationBar;
         [navigationBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
         [navigationBar setShadowImage:[UIImage new]];
-    }else if (XSNavBarStyle_Red == navBarStyle){
+    }else if (XSNavBarStyle_Red == _navBarStyle){
         self.titleViewLB.textColor = Color_whiteColor;
         self.navigationController.navigationBar.barTintColor = kNavigationBarColor;
         self.navigationController.navigationBar.translucent = NO;
@@ -80,7 +91,7 @@
     if (showBack) {
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _backButton.frame = CGRectMake(0, 0, 20, 44);
-        [_backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [_backButton setImage:[UIImage imageNamed:@"back-white"] forState:UIControlStateNormal];
         [_backButton addTarget:self action:@selector(baseBack) forControlEvents:UIControlEventTouchUpInside];
         _backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10);
         UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithCustomView:_backButton];
@@ -89,6 +100,11 @@
     }else{
         self.navigationItem.hidesBackButton = YES;
     }
+}
+- (void)setShowRedBack:(BOOL)showRedBack{
+    NSAssert(self.showBack == NO, @"showBack, setShowRedBack, 设置其中一个即可");
+    [self setShowBack:showRedBack];
+    [_backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
 }
 - (void)setShowLeftButton:(BOOL)showLeftButton
 {

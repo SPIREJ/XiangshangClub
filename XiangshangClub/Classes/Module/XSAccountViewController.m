@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor greenColor];
+    self.navTitle = @"账户";
 }
 
 - (void)didReceiveMemoryWarning {

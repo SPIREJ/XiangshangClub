@@ -17,7 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blueColor];
+    self.navTitle = @"投资";
+//    [self setNavBarStyle:XSNavBarStyle_Red];
 }
 
 - (void)didReceiveMemoryWarning {

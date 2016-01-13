@@ -1,24 +1,27 @@
 //
-//  XSBorrowingViewController.m
+//  XSTextViewController.m
 //  XiangshangClub
 //
-//  Created by SPIREJ on 16/1/4.
+//  Created by SPIREJ on 16/1/13.
 //  Copyright © 2016年 SPIREJ. All rights reserved.
 //
 
-#import "XSBorrowingViewController.h"
+#import "XSTextViewController.h"
 
-@interface XSBorrowingViewController ()
+@interface XSTextViewController ()
 
 @end
 
-@implementation XSBorrowingViewController
+@implementation XSTextViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.navTitle = @"借款";
+    // Do any additional setup after loading the view.
+    
+    self.navTitle = @"二级 测试控制器";
     self.navBarStyle = XSNavBarStyle_Red;
+    
+    self.showBack = YES;
 }
 
 - (void)didReceiveMemoryWarning {

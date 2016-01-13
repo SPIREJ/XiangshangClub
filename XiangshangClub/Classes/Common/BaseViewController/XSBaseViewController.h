@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLNavigationController.h"
 
 typedef NS_ENUM(NSInteger, XSNavBarStyle)
 {

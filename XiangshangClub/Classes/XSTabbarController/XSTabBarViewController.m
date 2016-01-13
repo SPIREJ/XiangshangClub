@@ -52,14 +52,20 @@
 - (void)setUpControllers
 {
     XSRecommendViewController * recommendVC = [[XSRecommendViewController alloc] init];
-    XSBorrowingViewController * borrowingVC = [[XSBorrowingViewController alloc] init];
-    XSInvestViewController *investVC = [[XSInvestViewController alloc] init];
-    XSAccountViewController * accountVC = [[XSAccountViewController alloc] init];
+    MLNavigationController *recommendNav = [[MLNavigationController alloc] initWithRootViewController:recommendVC];
     
-    [self.viewControllers addObject:recommendVC];
-    [self.viewControllers addObject:borrowingVC];
-    [self.viewControllers addObject:investVC];
-    [self.viewControllers addObject:accountVC];
+    XSBorrowingViewController * borrowingVC = [[XSBorrowingViewController alloc] init];
+    MLNavigationController *borrowingNav = [[MLNavigationController alloc] initWithRootViewController:borrowingVC];
+    
+    XSInvestViewController *investVC = [[XSInvestViewController alloc] init];
+    MLNavigationController *investNav = [[MLNavigationController alloc] initWithRootViewController:investVC];
+    XSAccountViewController * accountVC = [[XSAccountViewController alloc] init];
+    MLNavigationController *accountNav = [[MLNavigationController alloc] initWithRootViewController:accountVC];
+    
+    [self.viewControllers addObject:recommendNav];
+    [self.viewControllers addObject:borrowingNav];
+    [self.viewControllers addObject:investNav];
+    [self.viewControllers addObject:accountNav];
 }
 /**
  *  添加子控制器，初始化tabbarItem
@@ -91,6 +97,16 @@
     UITabBarItem *tabbarItem = [UITabBarItem appearance];
     [tabbarItem setTitleTextAttributes:normalAttrs forState:UIControlStateNormal];
     [tabbarItem setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
+}
+
+#pragma mark - UITabBarControllerDelegate
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *nav = (UINavigationController *)viewController;
+        UIViewController *vc = [nav.viewControllers objectAtIndex:0];
+        DLog(@"current viewcontroller is %@", vc);
+    }
+    return YES;
 }
 
 @end
